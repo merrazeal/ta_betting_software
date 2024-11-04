@@ -2,6 +2,10 @@
 
 Тестовое задание в Betting Software
 
+2 микросервиса взаимодействуют друг с другом с помощью http и канала pubsub
+
+Создадим общую сеть
+
 ```
 docker network create bsw_network
 ```
