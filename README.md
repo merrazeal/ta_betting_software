@@ -21,3 +21,12 @@ make bet_maker_up
 make line_provider_build
 make line_provider_up
 ```
+
+Возможные улучшения:
+- кеширование
+- бэкофы
+- тротлинг на create, update операции
+- использовать rabbitmq с ack
+- nginx как reverse proxy для каждого микросервиса
+- мониторинг
+- тесты
