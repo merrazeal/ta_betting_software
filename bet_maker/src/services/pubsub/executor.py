@@ -29,9 +29,7 @@ class AsyncTaskExecutor(BaseAsyncExecutor):
 
     async def execute(self, task_name: str, input_data: InputData) -> None:
         self.logger.info(f"Starting task: {task_name} with input data: {input_data}")
-        task = self.tasks.get(task_name)
-        if not task:
-            return
+        task = self.tasks[task_name]
         try:
             await task(*input_data.args, **input_data.kwargs)
         except Exception as e:
