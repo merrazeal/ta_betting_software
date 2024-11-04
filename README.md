@@ -3,7 +3,7 @@
 Тестовое задание в Betting Software
 
 ```
-docker network create bsw-network
+docker network create bsw_network
 ```
 
 ### Bet Maker
