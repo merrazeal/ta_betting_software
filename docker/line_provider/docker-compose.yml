@@ -1,0 +1,60 @@
+x-base: &base
+  restart: unless-stopped
+  networks:
+    - bsw_network
+
+x-hc-interval: &hc-interval
+  interval: 2s
+  retries: 10
+  timeout: 10s
+
+
+services:
+  api_line_provider:
+    <<: *base
+    container_name: api_line_provider
+    env_file: ./env.line_provider
+    build:
+      context: ../../.
+      dockerfile: ./docker/line_provider/Dockerfile
+    volumes:
+      - ../../line_provider/src/:/app
+    ports:
+      - 9090:9090
+
+  elasticdump_line_provider:
+    container_name: elasticdump_line_provider
+    networks:
+      - bsw_network
+    restart: on-failure
+    build:
+      context: ../../.
+      dockerfile: ./docker/elasticdump/Dockerfile
+    volumes:
+      - ../elasticdump:/tmp/es_dump:ro
+    depends_on:
+      elasticsearch_line_provider:
+        condition: service_healthy
+
+  elasticsearch_line_provider:
+    <<: *base
+    image: docker.io/elastic/elasticsearch:8.13.2
+    container_name: elasticsearch_line_provider
+    restart: on-failure
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms200m -Xmx200m
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      <<: *hc-interval
+      test: [ "CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+
+
+volumes:
+  esdata:
+
+networks:
+  bsw_network:
+    external: true

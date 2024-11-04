@@ -1,0 +1,3 @@
+{"_index":"events","_id":"f12a2a58-61fa-45a6-85be-5dfdf0313d0a","_score":1,"_source":{"id":"f12a2a58-61fa-45a6-85be-5dfdf0313d0a","coefficient":1.2,"deadline":1732085140,"state":1}}
+{"_index":"events","_id":"9f0f8a98-fa68-4606-83a8-1ae08080baed","_score":1,"_source":{"id":"9f0f8a98-fa68-4606-83a8-1ae08080baed","coefficient":1.15,"deadline":1730165540,"state":1}}
+{"_index":"events","_id":"6b600dee-55e6-4484-830f-c91e7aa5a599","_score":1,"_source":{"id":"6b600dee-55e6-4484-830f-c91e7aa5a599","coefficient":1.67,"deadline":1763021140,"state":1}}

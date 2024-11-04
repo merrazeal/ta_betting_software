@@ -1,0 +1,58 @@
+x-base: &base
+  restart: unless-stopped
+  networks:
+    - bsw_network
+
+x-hc-interval: &hc-interval
+  interval: 2s
+  retries: 10
+  timeout: 10s
+
+
+services:
+  api_bet_maker:
+    <<: *base
+    container_name: api_bet_maker
+    env_file: ./env.bet_maker
+    build:
+      context: ../../.
+      dockerfile: ./docker/bet_maker/Dockerfile
+    volumes:
+      - ../../bet_maker/src/:/app
+    depends_on:
+      postgres_bet_maker:
+        condition: service_healthy
+      redis_pubsub:
+        condition: service_healthy
+    ports:
+      - 8000:8000
+
+  postgres_bet_maker:
+    <<: *base
+    container_name: postgres_bet_maker
+    env_file: ./env.bet_maker
+    image: postgres:15.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      <<: *hc-interval
+      test: ["CMD-SHELL", "pg_isready -d bet_maker -U bsw"]
+
+  redis_pubsub:
+    <<: *base
+    container_name: redis_pubsub
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      <<: *hc-interval
+      test: [ "CMD", "redis-cli", "ping" ]
+
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  bsw_network:
+    external: true
