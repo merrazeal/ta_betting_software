@@ -49,6 +49,6 @@ class AsyncTaskExecutor(BaseAsyncExecutor):
                 task = self.tasks.get(message.task_name)
                 if task:
                     await self.execute(message.task_name, message.input_data)
-                self.logger.info("Executed all accumulated messages.")
+            self.logger.info("Executed all accumulated messages.")
 
     async def close(self): ...

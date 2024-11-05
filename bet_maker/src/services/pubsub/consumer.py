@@ -20,7 +20,6 @@ class AsyncConsumer:
 
     async def run(self) -> None:
         while True:
-            self.logger.info("📩 Waiting for messages...")
             new_message: Message | None = await self.subscriber.receive()
             if new_message:
                 self.logger.info(f"New message received: {new_message}")

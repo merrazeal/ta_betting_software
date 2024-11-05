@@ -30,3 +30,4 @@ make line_provider_up
 - nginx как reverse proxy для каждого микросервиса
 - мониторинг
 - тесты
+- вынести consumers в отдельные процессы
