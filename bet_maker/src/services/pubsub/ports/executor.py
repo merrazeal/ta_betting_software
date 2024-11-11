@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from services.pubsub.message import Message
+from services.pubsub.message import InputData, Message
 
 
 class BaseAsyncExecutor(ABC):
@@ -9,7 +9,7 @@ class BaseAsyncExecutor(ABC):
     async def initialize(self) -> None: ...
 
     @abstractmethod
-    async def execute(self) -> None: ...
+    async def execute(self, task_name: str, input_data: InputData) -> None: ...
 
     @abstractmethod
     async def close(self) -> None: ...

@@ -2,8 +2,8 @@ import asyncio
 import logging
 
 from core.config import settings
-from services.pubsub.adapters.executor import BaseAsyncExecutor
-from services.pubsub.adapters.subsciber import BaseAsyncSubscriber
+from services.pubsub.ports.executor import BaseAsyncExecutor
+from services.pubsub.ports.subsciber import BaseAsyncSubscriber
 from services.pubsub.message import Message
 
 

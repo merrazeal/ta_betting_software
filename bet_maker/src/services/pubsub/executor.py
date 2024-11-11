@@ -3,7 +3,7 @@ import logging
 from importlib import import_module
 
 from core.config import settings
-from services.pubsub.adapters.executor import BaseAsyncExecutor
+from services.pubsub.ports.executor import BaseAsyncExecutor
 from services.pubsub.message import InputData, Message
 
 

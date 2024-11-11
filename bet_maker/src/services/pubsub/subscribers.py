@@ -4,7 +4,7 @@ import logging
 from redis.asyncio import StrictRedis
 
 from core.config import settings
-from services.pubsub.adapters.subsciber import BaseAsyncSubscriber
+from services.pubsub.ports.subsciber import BaseAsyncSubscriber
 from services.pubsub.message import Message
 
 
