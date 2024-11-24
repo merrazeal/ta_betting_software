@@ -24,7 +24,7 @@ class AsyncRedisSubscriber(BaseAsyncSubscriber):
         await self.channel.subscribe(self.channel_name)
 
     async def receive(self) -> Message | None:
-        raw_message = await self.channel.get_message(ignore_subscribe_messages=True)
+        raw_message = await self.channel.get_message(ignore_subscribe_messages=True, timeout=1)
         if raw_message:
             return Message(**json.loads(raw_message["data"].decode("utf-8")))
 

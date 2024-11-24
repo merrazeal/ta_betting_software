@@ -31,9 +31,9 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         min_size=10,
         max_size=40,
     )
-    async_consumer = AsyncConsumer(
+    bet_async_consumer = AsyncConsumer(
         subscriber=AsyncRedisSubscriber(
-            channel_name=settings.channel_name, logger=logging.getLogger("consumer")
+            channel_name="bets_channel", logger=logging.getLogger("consumer")
         ),
         task_executor=AsyncTaskExecutor(
             task_registry={
@@ -44,10 +44,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         ),
         logger=logging.getLogger("consumer"),
     )
-    await async_consumer.consume()
+    await bet_async_consumer.consume()
     yield
     await postgres["pool"].close()
-    await async_consumer.close()
+    await bet_async_consumer.close()
 
 
 def get_application() -> FastAPI:

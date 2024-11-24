@@ -27,7 +27,6 @@ class Settings(BaseSettings):
     postgres_config: PostgresConfig = PostgresConfig()
     redis_pubsub_config: RedisPubsubConfig = RedisPubsubConfig()
     project_name: str = os.getenv("PROJECT_NAME")
-    message_poll_interval: float = 0.1
     message_execute_interval: int = 30
     channel_name: str = "bet_maker"
     api_line_provider_config: APILineProviderConfig = APILineProviderConfig()

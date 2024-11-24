@@ -24,7 +24,6 @@ class AsyncConsumer:
             if new_message:
                 self.logger.info(f"New message received: {new_message}")
                 await self.task_executor.exe_queue.put(new_message)
-            await asyncio.sleep(settings.message_poll_interval)
 
     async def consume(self) -> None:
         self.logger.info("Starting to consume messages")

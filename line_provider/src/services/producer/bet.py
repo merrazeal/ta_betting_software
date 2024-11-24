@@ -17,7 +17,7 @@ class BetRedisProducer:
     @backoff.on_exception(**settings.backoff_config.model_dump())
     async def bulk_update_bet_state(self, task_name: str, event_id: str, state: int):
         message = MessageBuilder(task_name).build(event_id, state)
-        await self.redis.publish(settings.channel_name, message.model_dump_json())
+        await self.redis.publish("bets_channel", message.model_dump_json())
 
 
 @lru_cache
